@@ -1,0 +1,39 @@
+## Path:        Hardware/Console/Screen
+## Description: Console screen settings
+## Type:        string(root,_cscreen)
+## Default:     "_cscreen"
+#
+# The owner of the screen session.
+#
+SCREEN_OWNER="_cscreen"
+
+## Type:        string
+## Default:     "console"
+#
+# The session name of the screen session.
+# Visible via 'screen -ls'.
+#
+SCREEN_NAME="console"
+
+## Type:        string
+## Default:     "/etc/cscreenrc"
+#
+# Path to the configuration file.
+#
+SCREENRC="/etc/cscreenrc"
+
+## Type:        integer(1:)
+## Default:     "2048"
+#
+# The maximum number of open file descriptors.
+# (set via ulimit -n)
+#
+SCREEN_FILE_LIMIT="2048"
+
+## Type:        integer(1:)
+## Default:     "10000"
+#
+# The history scrollback buffer in lines.
+#
+SCREEN_HISTORY="10000"
+

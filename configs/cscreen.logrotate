@@ -1,0 +1,12 @@
+/var/log/screen/*.log {
+    su cscreen cscreen
+    compress
+    dateext
+    maxage 365
+    rotate 99
+    size=+1024k
+    notifempty
+    missingok
+    copytruncate
+    olddir /var/log/screen/old
+}

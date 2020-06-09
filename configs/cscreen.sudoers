@@ -1,0 +1,1 @@
+ALL ALL=(_cscreen) NOPASSWD:/usr/bin/screen

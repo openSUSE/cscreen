@@ -1,0 +1,14 @@
+[Unit]
+Description=Console screen
+After=network.target autofs.service
+
+[Service]
+Type=forking 
+EnvironmentFile=-/etc/sysconfig/cscreen
+ExecStart=/usr/bin/screen -d -m -S $SCREEN_NAME -c $SCREENRC
+ExecReload=/bin/kill -HUP $MAINPID
+User=_cscreen
+Group=_cscreen
+
+[Install]
+WantedBy=multi-user.target

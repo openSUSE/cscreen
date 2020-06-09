@@ -1,0 +1,100 @@
+#!/bin/sh
+
+CUSER="_cscreen"
+
+PATH=/bin:/usr/bin:/sbin:/usr/sbin
+export PATH
+
+if [ -f "/etc/sysconfig/cscreen" ] ; then
+    . /etc/sysconfig/cscreen
+fi
+
+owner=${SCREEN_OWNER:=$CUSER}
+sessionname=${SCREEN_NAME:=console}
+CSCREENRC=${SCREENRC:="/etc/cscreenrc"}
+
+screen=/usr/bin/screen
+# suid bit must be set in multiuser mode
+# passing the owner enforces multiuser mode and would
+# fail in certain situations if not root.
+#
+# We simply assume that the session is run as the same
+# user we are currently logged in as (probably cscreen).
+if [ "$owner" = "root" ] || [ -u "$screen" ];then
+    connect=$owner/$sessionname
+elif [ "$owner" = "$CUSER" ];then
+    connect=$sessionname
+    screen="sudo -u $owner /usr/bin/screen"
+else
+    echo "owner must be $CUSER or root user"
+    exit 1
+fi
+
+SHOW_RAW_FLAGS=0
+# Safetey mechanism to sync with orthos. Orthos creates
+# this file, calls cscreen -u and deletes the file again,
+# so that others cannot re-trigger an update.
+UPDATE_ALLOWED_FILE="/etc/cscreenrc_allow_update"
+FORCE_UPDATE=0
+CSCREENRC_OLD="/etc/cscreenrc.old"
+update_config="/usr/bin/cscreen_update_config.sh"
+
+function usage()
+{
+    echo "cscreen [ -u | -l | name ]"
+    echo
+    echo "Connects to serial consoles, if a window name is passed as first parameter"
+    echo "cscreen will try to put this window into foreground"
+    echo
+    echo " -u  Will update (add/kill/restart) windows by diffing /etc/cscreenrc and"
+    echo "     /etc/cscreenrc.old. This parameter must only be used by orthos."
+    echo
+    echo " -l  Provides an overview of running windows and their state"
+    exit 0
+}
+
+if [[ $# == 0 ]];then
+    exec $screen -x $connect -p =
+    exit 0
+elif [[ $# == 1 ]];then
+    if [ "$1" == "-u" ]; then
+	if [ -r "$UPDATE_ALLOWED_FILE" ] || [[ "$FORCE_UPDATE" == 1 ]];then
+	    /usr/bin/cscreen_update_config.sh "$CSCREENRC_OLD" "$CSCREENRC" $connect
+	    exit 0
+	else
+	    echo "$UPDATE_ALLOWED_FILE does not exist -> No update done"
+	    exit 1
+	fi
+    elif [ "$1" == "-l" ]; then
+	window_list=`screen -r $connect -Q windows "%3n|%t|%f|%x#"`
+	IFS="#"
+	echo "NO"$'\t'"TITLE"$'\t'$'\t'$'\t'"Flags"
+	echo "Command"
+	for window in $window_list;do
+	    	IFS='|'
+		set $window
+		echo -n ${1}$'\t'
+		echo -n ${2}$'\t'
+		# Title too small, add another tab?
+		[[ ${#2} -lt 8 ]] && echo -n $'\t'
+		[[ ${#2} -lt 16 ]] && echo -n $'\t'
+		# Z flag set? -> zombie
+		if [[ $SHOW_RAW_FLAGS == 1 ]];then
+		    echo -n ${3}
+		else
+		    [[ $3 =~ "Z" ]] && echo -n "DEAD"
+		    [[ $3 =~ "*" ]] || [[ $3 =~ "&" ]] && echo -n "USED"
+		fi
+		echo
+		echo $4
+		echo
+	done
+	exit 0
+    elif [ "$1" == "-h" ]; then
+	usage
+    else
+	exec $screen -x $connect -p $1
+    fi
+else
+    usage
+fi

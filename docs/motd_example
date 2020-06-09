@@ -1,0 +1,15 @@
+##############################################
+#      Serial Console Supervisor             #
+#                                            #
+#            DO NOT TOUCH!                   #
+#                                            #
+# type 'cscreen' to get serial consoles      #
+#                                            #
+# - please always detach! (^A d)             #
+# - list of consoles: ^A "                   #
+# - list of current users: ^A *              #
+# - normal screen commands work as well      #
+# - sort consoles alphabetically: ^A :sort   #
+# - logs are in /var/log/screen/             #
+#                                            #
+##############################################
