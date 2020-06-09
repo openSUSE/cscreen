@@ -36,7 +36,7 @@ Release:        0
 Summary:        Console screen
 License:        BSD-4-Clause
 Group:          System/Management
-URL:            cscreen.config
+URL:            https://github.com/openSUSE/cscreen
 Source:         %{name}-%{version}.tar.xz
 BuildRequires:  screen
 BuildRequires:  sudo
@@ -54,6 +54,7 @@ This package allows to run multiple consoles in one 'screen' and
 to start the screen automatically during boot.
 
 %prep
+%setup
 #
 %build
 #
@@ -78,9 +79,6 @@ install -Dm644 configs/%{name}.sudoers %{buildroot}%{_sysconfdir}/sudoers.d/cscr
 install -Dm644 configs/%{name}.sysconfig %{buildroot}/%{_fillupdir}/sysconfig.%{name}
 install -Dm755 src/%{name} %{buildroot}/%{_bindir}/%{name}
 install -Dm755 src/%{name}_update_config.sh %{buildroot}/%{_bindir}/cscreen_update_config.sh
-
-cp %{SOURCE9} motd_example
-cp %{SOURCE10} License
 
 mkdir -p %{buildroot}%{_localstatedir}/log/screen/old
 mkdir -pm770 %{buildroot}/%{HOMEDIR}
