@@ -31,7 +31,7 @@ BuildRequires:  systemd
 Requires(pre):  %insserv_prereq
 %endif
 Name:           cscreen
-Version:        0.6
+Version:        0.7
 Release:        0
 Summary:        Console screen
 License:        BSD-4-Clause
