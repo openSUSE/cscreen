@@ -24,8 +24,8 @@
 %endif
 %if 0%{?suse_version} > 1210
 %define has_systemd 1
-BuildRequires:  systemd
-%{?systemd_requires}
+BuildRequires:  pkgconfig(systemd)
+%{?systemd_ordering}
 %else
 %define has_systemd 0
 Requires(pre):  %insserv_prereq
@@ -40,10 +40,11 @@ URL:            https://github.com/openSUSE/cscreen
 Source:         %{name}-%{version}.tar.xz
 BuildRequires:  screen
 BuildRequires:  sudo
-Requires:       logrotate
+Recommends:     logrotate
 Requires:       mailx
 Requires:       screen
 Requires:       sudo
+Requires(postun): coreutils
 # FIXME: use proper Requires(pre/post/preun/...)
 PreReq:         %fillup_prereq
 PreReq:         shadow
@@ -126,7 +127,13 @@ getent passwd %{USERNAME} >/dev/null || \
 %insserv_cleanup
 %endif
 if [ -d /run/uscreens/S-cscreen ];then
-    rm -rf /run/uscreens/S-cscreen
+    if [ "$1" == "0" ];then
+	# Only delete on uninstall
+	rm -rf /run/uscreens/S-cscreen
+    else
+	# Adjust to possible new user on upgrade
+	chmod -R %{USERNAME}:%{GROUPNAME} /run/uscreens/S-cscreen
+    fi
 fi
 
 %files
