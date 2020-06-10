@@ -44,7 +44,7 @@ Recommends:     logrotate
 Requires:       mailx
 Requires:       screen
 Requires:       sudo
-Requires(postun): coreutils
+Requires(postun): /usr/bin/rm
 # FIXME: use proper Requires(pre/post/preun/...)
 PreReq:         %fillup_prereq
 PreReq:         shadow
@@ -127,12 +127,9 @@ getent passwd %{USERNAME} >/dev/null || \
 %insserv_cleanup
 %endif
 if [ -d /run/uscreens/S-cscreen ];then
-    if [ "$1" == "0" ];then
+    if [ "$1" = "0" ];then
 	# Only delete on uninstall
 	rm -rf /run/uscreens/S-cscreen
-    else
-	# Adjust to possible new user on upgrade
-	chmod -R %{USERNAME}:%{GROUPNAME} /run/uscreens/S-cscreen
     fi
 fi
 
