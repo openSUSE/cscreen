@@ -34,7 +34,7 @@ SHOW_RAW_FLAGS=0
 # Safetey mechanism to sync with orthos. Orthos creates
 # this file, calls cscreen -u and deletes the file again,
 # so that others cannot re-trigger an update.
-UPDATE_ALLOWED_FILE="/etc/cscreenrc_allow_update"
+UPDATE_ALLOWED_FILE="/dev/shm/.cscreenrc_allow_update"
 FORCE_UPDATE=0
 CSCREENRC_OLD="/etc/cscreenrc.old"
 update_config="/usr/bin/cscreen_update_config.sh"
