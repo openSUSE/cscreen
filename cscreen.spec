@@ -119,6 +119,7 @@ getent passwd %{USERNAME} >/dev/null || \
 
 %postun
 %if %{?has_systemd}
+DISABLE_RESTART_ON_UPDATE=yes
 %service_del_postun %{name}d.service
 %else
 %restart_on_update %{name}d
