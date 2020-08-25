@@ -146,8 +146,8 @@ fi
 %{_sbindir}/rc%{name}d
 
 %{_sysconfdir}/sudoers.d/cscreen
-%attr(644,%{USERNAME}, %{GROUPNAME}) %dir %{_localstatedir}/log/screen
-%attr(644,%{USERNAME}, %{GROUPNAME}) %dir %{_localstatedir}/log/screen/old
+%attr(755,%{USERNAME}, %{GROUPNAME}) %dir %{_localstatedir}/log/screen
+%attr(755,%{USERNAME}, %{GROUPNAME}) %dir %{_localstatedir}/log/screen/old
 %attr(644,%{USERNAME}, %{GROUPNAME}) %{_fillupdir}/sysconfig.%{name}
 %attr(700,%{USERNAME}, %{GROUPNAME}) %dir %{HOMEDIR}
 %attr(700,%{USERNAME}, %{GROUPNAME}) %dir %{HOMEDIR}/.ssh
