@@ -7,6 +7,7 @@ Type=forking
 EnvironmentFile=-/etc/sysconfig/cscreen
 ExecStart=/usr/bin/screen -d -m -S $SCREEN_NAME -c $SCREENRC
 ExecReload=/bin/kill -HUP $MAINPID
+# This can be adjusted via "drop-in" directory cscreen.service.d/ (see systemd.unit(5))
 User=_cscreen
 Group=_cscreen
 
