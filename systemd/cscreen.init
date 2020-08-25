@@ -25,7 +25,7 @@
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
 export PATH
 
-SCREEN_OWNER='root'
+SCREEN_OWNER='_cscreen'
 SCREEN_NAME='console'
 SCREENRC='/etc/cscreenrc'
 sysconfig='/etc/sysconfig/cscreen'
