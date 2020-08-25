@@ -38,8 +38,6 @@ License:        BSD-4-Clause
 Group:          System/Management
 URL:            https://github.com/openSUSE/cscreen
 Source:         %{name}-%{version}.tar.xz
-BuildRequires:  screen
-BuildRequires:  sudo
 Recommends:     logrotate
 Requires:       mailx
 Requires:       screen
