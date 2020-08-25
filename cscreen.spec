@@ -143,7 +143,8 @@ fi
 %endif
 %{_sbindir}/rc%{name}d
 
-%config %{_sysconfdir}/sudoers.d/cscreen
+%attr(0750,root,root) %dir %{_sysconfdir}/sudoers.d
+%attr(0640,root,root) %config %{_sysconfdir}/sudoers.d/cscreen
 %attr(755,%{USERNAME}, %{GROUPNAME}) %dir %{_localstatedir}/log/screen
 %attr(755,%{USERNAME}, %{GROUPNAME}) %dir %{_localstatedir}/log/screen/old
 %attr(644,%{USERNAME}, %{GROUPNAME}) %{_fillupdir}/sysconfig.%{name}
