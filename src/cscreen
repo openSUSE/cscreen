@@ -19,7 +19,7 @@ screen=/usr/bin/screen
 # fail in certain situations if not root.
 #
 # We simply assume that the session is run as the same
-# user we are currently logged in as (probably cscreen).
+# user we are currently logged in as (probably _cscreen).
 if [ "$owner" = "root" ] || [ -u "$screen" ];then
     connect=$owner/$sessionname
 elif [ "$owner" = "$CUSER" ];then
