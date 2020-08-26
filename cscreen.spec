@@ -47,6 +47,7 @@ Requires(postun): /usr/bin/rm
 PreReq:         %fillup_prereq
 PreReq:         shadow
 BuildArch:      noarch
+BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
 This package allows to run multiple consoles in one 'screen' and
