@@ -134,6 +134,7 @@ if [ -d /run/uscreens/S-cscreen ];then
 fi
 
 %files
+%defattr(-,root,root)
 %doc docs/motd_example
 %if 0%{?suse_version} > 1315
 %license License
