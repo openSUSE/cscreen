@@ -135,7 +135,9 @@ fi
 
 %files
 %doc docs/motd_example
+%if 0%{?suse_version} > 1315
 %license License
+%endif
 %{_bindir}/%{name}
 %{_bindir}/cscreen_update_config.sh
 %if %{?has_systemd}
