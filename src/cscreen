@@ -58,7 +58,7 @@ if [[ $# == 0 ]];then
     exit 0
 elif [[ $# == 1 ]];then
     if [ "$1" == "-u" ]; then
-	if [ -r "$UPDATE_ALLOWED_FILE" ] || [[ "$FORCE_UPDATE" == 1 ]];then
+	if [ -r "$UPDATE_ALLOWED_FILE" ] || [ "$FORCE_UPDATE" == 1 ];then
 	    /usr/bin/cscreen_update_config.sh "$CSCREENRC_OLD" "$CSCREENRC" $connect
 	    exit 0
 	else
