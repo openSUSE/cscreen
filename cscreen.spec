@@ -31,7 +31,7 @@ BuildRequires:  pkgconfig(systemd)
 Requires(pre):  %insserv_prereq
 %endif
 Name:           cscreen
-Version:        0.7
+Version:        0
 Release:        0
 Summary:        Console screen
 License:        BSD-4-Clause
