@@ -38,6 +38,7 @@ License:        BSD-4-Clause
 Group:          System/Management
 URL:            https://github.com/openSUSE/cscreen
 Source:         %{name}-%{version}.tar.xz
+BuildRequires:  sudo
 Recommends:     logrotate
 Requires:       mailx
 Requires:       screen
@@ -151,7 +152,6 @@ fi
 %endif
 %{_sbindir}/rc%{name}d
 
-%attr(0750,root,root) %dir %{_sysconfdir}/sudoers.d
 %attr(0640,root,root) %config %{_sysconfdir}/sudoers.d/cscreen
 %attr(755,%{USERNAME}, %{GROUPNAME}) %dir %{_localstatedir}/log/screen
 %attr(755,%{USERNAME}, %{GROUPNAME}) %dir %{_localstatedir}/log/screen/old
