@@ -14,6 +14,7 @@ sessionname=${SCREEN_NAME:=console}
 CSCREENRC=${SCREENRC:="/etc/cscreenrc"}
 
 screen=/usr/bin/screen
+stty=/usr/bin/stty
 # suid bit must be set in multiuser mode
 # passing the owner enforces multiuser mode and would
 # fail in certain situations if not root.
@@ -93,7 +94,17 @@ elif [[ $# == 1 ]];then
     elif [ "$1" == "-h" ]; then
 	usage
     else
+	# The terminal interprets many characters which might be useful on the
+	# remote end. Unset everything but erase and let the remote system
+	# handle them. Restore settings when screen exits.
+	# Defaults: intr = ^C; quit = ^\; erase = ^?; kill = ^U; eof = ^D;
+	# eol = <undef>; eol2 = <undef>; swtch = <undef>; start = ^Q;
+	# stop = ^S; susp = ^Z; rprnt = ^R; werase = ^W; lnext = ^V;
+	# discard = ^O;
+	stty_settings="$($stty -g)"
+	$stty intr '' quit '' kill '' eof '' eol '' eol2 '' swtch '' start '' stop '' susp '' rprnt '' werase '' lnext '' discard ''
 	exec $screen -x $connect -p $1
+	$stty $stty_settings
     fi
 else
     usage
