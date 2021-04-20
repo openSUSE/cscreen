@@ -1,6 +1,6 @@
 [Unit]
 Description=Console screen
-After=network.target autofs.service
+After=local-fs.target
 
 [Service]
 Type=forking 
