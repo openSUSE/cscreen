@@ -44,7 +44,10 @@ Requires:       screen
 Requires:       sudo
 Requires(postun): /usr/bin/rm
 # FIXME: use proper Requires(pre/post/preun/...)
+%if 0%{?has_systemd}
+%else
 PreReq:         %fillup_prereq
+%endif
 PreReq:         shadow
 BuildArch:      noarch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
@@ -72,6 +75,7 @@ pushd %{buildroot}/%{_sbindir}
 ln -sf service %{buildroot}%{_sbindir}/rc%{name}d
 popd
 %else
+install -Dm644 configs/%{name}.sysconfig %{buildroot}/%{_fillupdir}/sysconfig.%{name}
 install -Dm755 systemd/cscreen.init %{buildroot}/%{_sysconfdir}/init.d/%{name}d
 pushd %{buildroot}/%{_sbindir}
 ln -s %{_sysconfdir}/init.d/%{name}d rc%{name}d
@@ -81,7 +85,6 @@ popd
 install -Dm640 configs/%{name}.config %{buildroot}/%{_sysconfdir}/%{name}rc
 install -Dm644 configs/%{name}.logrotate %{buildroot}/%{_sysconfdir}/logrotate.d/%{name}
 install -Dm644 configs/%{name}.sudoers %{buildroot}%{_sysconfdir}/sudoers.d/%{name}
-install -Dm644 configs/%{name}.sysconfig %{buildroot}/%{_fillupdir}/sysconfig.%{name}
 install -Dm755 src/%{name} %{buildroot}/%{_bindir}/%{name}
 install -Dm755 src/%{name}_update_config.sh %{buildroot}/%{_bindir}/cscreen_update_config.sh
 
@@ -112,8 +115,8 @@ getent passwd %{USERNAME} >/dev/null || \
 %service_add_post %{name}d.service
 %else
 %{fillup_and_insserv %{name}d }
-%endif
 %fillup_only %{name}
+%endif
 
 %preun
 %if 0%{?has_systemd}
@@ -153,12 +156,12 @@ fi
 %if 0%{?has_systemd}
 %{_unitdir}/%{name}d.service
 %else
+%attr(0644,root,root) %{_fillupdir}/sysconfig.%{name}
 %{_sysconfdir}/init.d/%{name}d
 %endif
 %{_sbindir}/rc%{name}d
 
 %attr(0640,root,root) %config %{_sysconfdir}/sudoers.d/%{name}
-%attr(0644,root,root) %{_fillupdir}/sysconfig.%{name}
 %attr(755,%{USERNAME}, %{GROUPNAME}) %dir %{_localstatedir}/log/screen
 %attr(755,%{USERNAME}, %{GROUPNAME}) %dir %{_localstatedir}/log/screen/old
 %attr(700,%{USERNAME}, %{GROUPNAME}) %dir %{HOMEDIR}
