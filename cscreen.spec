@@ -158,9 +158,9 @@ fi
 %{_sbindir}/rc%{name}d
 
 %attr(0640,root,root) %config %{_sysconfdir}/sudoers.d/%{name}
+%attr(0644,root,root) %{_fillupdir}/sysconfig.%{name}
 %attr(755,%{USERNAME}, %{GROUPNAME}) %dir %{_localstatedir}/log/screen
 %attr(755,%{USERNAME}, %{GROUPNAME}) %dir %{_localstatedir}/log/screen/old
-%attr(644,%{USERNAME}, %{GROUPNAME}) %{_fillupdir}/sysconfig.%{name}
 %attr(700,%{USERNAME}, %{GROUPNAME}) %dir %{HOMEDIR}
 %attr(700,%{USERNAME}, %{GROUPNAME}) %dir %{HOMEDIR}/.ssh
 %attr(644,%{USERNAME}, %{GROUPNAME}) %config(noreplace) %{_sysconfdir}/%{name}rc
