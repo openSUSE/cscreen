@@ -66,7 +66,7 @@ then
 fi
 mkdir -p %{buildroot}/%{_sbindir}
 
-%if %{?has_systemd}
+%if 0%{?has_systemd}
 install -Dm644 systemd/cscreen.service %{buildroot}/%{_unitdir}/%{name}d.service
 pushd %{buildroot}/%{_sbindir}
 ln -sf service %{buildroot}%{_sbindir}/rc%{name}d
@@ -90,7 +90,7 @@ mkdir -pm700 %{buildroot}/%{HOMEDIR}
 mkdir -pm700 %{buildroot}/%{HOMEDIR}/.ssh
 
 %pre
-%if %{?has_systemd}
+%if 0%{?has_systemd}
 %service_add_pre %{name}d.service
 %endif
 getent group %{GROUPNAME} >/dev/null || groupadd -r %{GROUPNAME}
@@ -108,7 +108,7 @@ getent passwd %{USERNAME} >/dev/null || \
 	    -c "cscreen daemon user" %{USERNAME} $TTY_GROUP
 
 %post
-%if %{?has_systemd}
+%if 0%{?has_systemd}
 %service_add_post %{name}d.service
 %else
 %{fillup_and_insserv %{name}d }
@@ -116,14 +116,14 @@ getent passwd %{USERNAME} >/dev/null || \
 %fillup_only %{name}
 
 %preun
-%if %{?has_systemd}
+%if 0%{?has_systemd}
 %service_del_preun %{name}d.service
 %else
 %stop_on_removal %{name}d
 %endif
 
 %postun
-%if %{?has_systemd}
+%if 0%{?has_systemd}
 %if %{defined service_del_postun_without_restart}
 %service_del_postun_without_restart %{name}d.service
 %else
@@ -149,7 +149,7 @@ fi
 %endif
 %{_bindir}/%{name}
 %{_bindir}/cscreen_update_config.sh
-%if %{?has_systemd}
+%if 0%{?has_systemd}
 %{_unitdir}/%{name}d.service
 %else
 %{_sysconfdir}/init.d/%{name}d
