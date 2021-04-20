@@ -29,11 +29,3 @@ SCREENRC="/etc/cscreenrc"
 # (set via ulimit -n)
 #
 SCREEN_FILE_LIMIT="2048"
-
-## Type:        integer(1:)
-## Default:     "10000"
-#
-# The history scrollback buffer in lines.
-#
-SCREEN_HISTORY="10000"
-
