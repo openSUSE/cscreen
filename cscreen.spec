@@ -43,13 +43,12 @@ BuildRequires:  sudo
 Recommends:     logrotate
 Requires:       screen
 Requires:       sudo
-Requires(postun): /usr/bin/rm
-# FIXME: use proper Requires(pre/post/preun/...)
+Requires(pre):  shadow
+Requires(postun): coreutils
 %if 0%{?has_systemd}
 %else
 PreReq:         %fillup_prereq
 %endif
-PreReq:         shadow
 BuildArch:      noarch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
