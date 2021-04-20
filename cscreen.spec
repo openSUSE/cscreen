@@ -59,6 +59,11 @@ to start the screen automatically during boot.
 %build
 #
 %install
+> %{name}.files
+if ! test -d %{_sysconfdir}/sudoers.d
+then
+  echo '%%dir %{_sysconfdir}/sudoers.d'
+fi
 mkdir -p %{buildroot}/%{_sbindir}
 
 %if %{?has_systemd}
@@ -136,7 +141,7 @@ if [ -d /run/uscreens/S-cscreen ];then
     fi
 fi
 
-%files
+%files -f %{name}.files
 %defattr(-,root,root)
 %doc docs/motd_example
 %if 0%{?suse_version} > 1315
