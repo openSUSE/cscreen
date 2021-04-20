@@ -8,14 +8,6 @@
 SCREEN_OWNER="_cscreen"
 
 ## Type:        string
-## Default:     "console"
-#
-# The session name of the screen session.
-# Visible via 'screen -ls'.
-#
-SCREEN_NAME="console"
-
-## Type:        string
 ## Default:     "/etc/cscreenrc"
 #
 # Path to the configuration file.

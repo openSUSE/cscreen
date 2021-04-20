@@ -4,6 +4,7 @@ After=network.target autofs.service
 
 [Service]
 Type=forking 
+Environment=SCREEN_NAME='console'
 Environment=SCREEN_HISTORY="20000"
 EnvironmentFile=-/etc/sysconfig/cscreen
 ExecStart=/usr/bin/screen -h $SCREEN_HISTORY -d -m -S $SCREEN_NAME -c $SCREENRC
