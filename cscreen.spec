@@ -65,7 +65,7 @@ to start the screen automatically during boot.
 > %{name}.files
 if ! test -d %{_sysconfdir}/sudoers.d
 then
-  echo '%%dir %{_sysconfdir}/sudoers.d'
+  echo '%%dir %{_sysconfdir}/sudoers.d' >> %{name}.files
 fi
 mkdir -p %{buildroot}/%{_sbindir}
 
