@@ -1,10 +1,9 @@
 #!/bin/sh
 
-CUSER="_cscreen"
-
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
 export PATH
 
+SCREEN_OWNER='_cscreen'
 SCREEN_NAME='console'
 SCREENRC='/etc/cscreenrc'
 
@@ -12,7 +11,6 @@ if [ -f "/etc/sysconfig/cscreen" ] ; then
     . /etc/sysconfig/cscreen
 fi
 
-owner=${SCREEN_OWNER:=$CUSER}
 
 screen=/usr/bin/screen
 stty=/usr/bin/stty
@@ -22,13 +20,13 @@ stty=/usr/bin/stty
 #
 # We simply assume that the session is run as the same
 # user we are currently logged in as (probably _cscreen).
-if [ "$owner" = "root" ] || [ -u "$screen" ];then
-    connect=$owner/$SCREEN_NAME
-elif [ "$owner" = "$CUSER" ];then
+if [ "$SCREEN_OWNER" = "root" ] || [ -u "$screen" ];then
+    connect=$SCREEN_OWNER/$SCREEN_NAME
+elif [ "$SCREEN_OWNER" = "$SCREEN_OWNER" ];then
     connect=$SCREEN_NAME
-    screen="sudo -u $owner /usr/bin/screen"
+    screen="sudo -u $SCREEN_OWNER /usr/bin/screen"
 else
-    echo "owner must be $CUSER or root user"
+    echo "owner must be $SCREEN_OWNER or root user"
     exit 1
 fi
 
