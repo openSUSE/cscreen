@@ -67,7 +67,7 @@ pushd %{buildroot}/%{_sbindir}
 ln -sf service %{buildroot}%{_sbindir}/rc%{name}d
 popd
 %else
-install -Dm755 systemd/cscreen.init %{buildroot}/%{_sysconfdir}/init.d/cscreend
+install -Dm755 systemd/cscreen.init %{buildroot}/%{_sysconfdir}/init.d/%{name}d
 pushd %{buildroot}/%{_sbindir}
 ln -s %{_sysconfdir}/init.d/%{name}d rc%{name}d
 popd
@@ -75,7 +75,7 @@ popd
 
 install -Dm640 configs/%{name}.config %{buildroot}/%{_sysconfdir}/%{name}rc
 install -Dm644 configs/%{name}.logrotate %{buildroot}/%{_sysconfdir}/logrotate.d/%{name}
-install -Dm644 configs/%{name}.sudoers %{buildroot}%{_sysconfdir}/sudoers.d/cscreen
+install -Dm644 configs/%{name}.sudoers %{buildroot}%{_sysconfdir}/sudoers.d/%{name}
 install -Dm644 configs/%{name}.sysconfig %{buildroot}/%{_fillupdir}/sysconfig.%{name}
 install -Dm755 src/%{name} %{buildroot}/%{_bindir}/%{name}
 install -Dm755 src/%{name}_update_config.sh %{buildroot}/%{_bindir}/cscreen_update_config.sh
@@ -145,13 +145,13 @@ fi
 %{_bindir}/%{name}
 %{_bindir}/cscreen_update_config.sh
 %if %{?has_systemd}
-%{_unitdir}/cscreend.service
+%{_unitdir}/%{name}d.service
 %else
-%{_sysconfdir}/init.d/cscreend
+%{_sysconfdir}/init.d/%{name}d
 %endif
 %{_sbindir}/rc%{name}d
 
-%attr(0640,root,root) %config %{_sysconfdir}/sudoers.d/cscreen
+%attr(0640,root,root) %config %{_sysconfdir}/sudoers.d/%{name}
 %attr(755,%{USERNAME}, %{GROUPNAME}) %dir %{_localstatedir}/log/screen
 %attr(755,%{USERNAME}, %{GROUPNAME}) %dir %{_localstatedir}/log/screen/old
 %attr(644,%{USERNAME}, %{GROUPNAME}) %{_fillupdir}/sysconfig.%{name}
