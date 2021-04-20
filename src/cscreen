@@ -6,13 +6,13 @@ PATH=/bin:/usr/bin:/sbin:/usr/sbin
 export PATH
 
 SCREEN_NAME='console'
+SCREENRC='/etc/cscreenrc'
 
 if [ -f "/etc/sysconfig/cscreen" ] ; then
     . /etc/sysconfig/cscreen
 fi
 
 owner=${SCREEN_OWNER:=$CUSER}
-CSCREENRC=${SCREENRC:="/etc/cscreenrc"}
 
 screen=/usr/bin/screen
 stty=/usr/bin/stty
@@ -48,8 +48,8 @@ function usage()
     echo "Connects to serial consoles, if a window name is passed as first parameter"
     echo "cscreen will try to put this window into foreground"
     echo
-    echo " -u  Will update (add/kill/restart) windows by diffing /etc/cscreenrc and"
-    echo "     /etc/cscreenrc.old. This parameter must only be used by orthos."
+    echo " -u  Will update (add/kill/restart) windows by diffing '$SCREENRC' and"
+    echo "     '$CSCREENRC_OLD'. This parameter must only be used by orthos."
     echo
     echo " -l  Provides an overview of running windows and their state"
     exit 0
@@ -61,7 +61,7 @@ if [[ $# == 0 ]];then
 elif [[ $# == 1 ]];then
     if [ "$1" == "-u" ]; then
 	if [ -r "$UPDATE_ALLOWED_FILE" ] || [ "$FORCE_UPDATE" == 1 ];then
-	    /usr/bin/cscreen_update_config.sh "$CSCREENRC_OLD" "$CSCREENRC" $connect
+	    /usr/bin/cscreen_update_config.sh "$CSCREENRC_OLD" "$SCREENRC" $connect
 	    exit 0
 	else
 	    echo "$UPDATE_ALLOWED_FILE does not exist -> No update done"

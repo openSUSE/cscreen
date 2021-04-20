@@ -7,13 +7,6 @@
 #
 SCREEN_OWNER="_cscreen"
 
-## Type:        string
-## Default:     "/etc/cscreenrc"
-#
-# Path to the configuration file.
-#
-SCREENRC="/etc/cscreenrc"
-
 ## Type:        integer(1:)
 ## Default:     "2048"
 #

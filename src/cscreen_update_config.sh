@@ -12,6 +12,12 @@
 # $2: New screenrc file (for example /etc/cscreenrc)
 # $3: The cscreen session to connect to (e.g. root/console or root/ppc)
 
+SCREENRC='/etc/cscreenrc'
+
+if [ -f "/etc/sysconfig/cscreen" ] ; then
+    . /etc/sysconfig/cscreen
+fi
+
 DEBUG=0
 function err_out()
 {
@@ -38,7 +44,7 @@ function add_window()
 
     # change defhstatus
     _host=$(echo $COMMAND | cut -d" " -f 3)
-    _status="$(sed -n "/${_host}/{n;p}" /etc/cscreenrc)"
+    _status="$(sed -n "/${_host}/{n;p}" $SCREENRC)"
     _status="$(echo $_status |sed 's/defhstatus "\(.*\)"/\1/')"
     echo $_host >> /tmp/cscreen.debug
     echo $_status >> /tmp/cscreen.debug
