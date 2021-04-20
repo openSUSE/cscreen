@@ -40,7 +40,6 @@ URL:            https://github.com/openSUSE/cscreen
 Source:         %{name}-%{version}.tar.xz
 BuildRequires:  sudo
 Recommends:     logrotate
-Requires:       mailx
 Requires:       screen
 Requires:       sudo
 Requires(postun): /usr/bin/rm
