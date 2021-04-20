@@ -144,7 +144,7 @@ fi
 %files -f %{name}.files
 %defattr(-,root,root)
 %doc docs/motd_example
-%if 0%{?suse_version} > 1315
+%if 0%{?suse_version} > 1320
 %license License
 %endif
 %{_bindir}/%{name}
