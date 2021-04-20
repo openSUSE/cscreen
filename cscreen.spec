@@ -131,6 +131,7 @@ DISABLE_RESTART_ON_UPDATE=yes
 %service_del_postun %{name}d.service
 %endif
 %else
+DISABLE_RESTART_ON_UPDATE=yes
 %restart_on_update %{name}d
 %insserv_cleanup
 %endif
