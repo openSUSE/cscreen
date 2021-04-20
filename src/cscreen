@@ -24,7 +24,7 @@ if [ "$SCREEN_OWNER" = "root" ] || [ -u "$screen" ];then
     connect=$SCREEN_OWNER/$SCREEN_NAME
 elif [ "$SCREEN_OWNER" = "$SCREEN_OWNER" ];then
     connect=$SCREEN_NAME
-    screen="sudo -u $SCREEN_OWNER /usr/bin/screen"
+    screen="sudo -u $SCREEN_OWNER $screen"
 else
     echo "owner must be $SCREEN_OWNER or root user"
     exit 1
