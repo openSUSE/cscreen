@@ -1,0 +1,4 @@
+#!/bin/bash
+# undo the stty settings from cscreen for shells launched by screen
+stty sane
+exec bash

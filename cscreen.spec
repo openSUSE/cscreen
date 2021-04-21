@@ -85,6 +85,7 @@ popd
 install -Dm640 configs/%{name}.config %{buildroot}/%{_sysconfdir}/%{name}rc
 install -Dm644 configs/%{name}.logrotate %{buildroot}/%{_sysconfdir}/logrotate.d/%{name}
 install -Dm644 configs/%{name}.sudoers %{buildroot}%{_sysconfdir}/sudoers.d/%{name}
+install -Dm755 src/%{name}-shell %{buildroot}/%{_datadir}/%{name}/%{name}-shell
 install -Dm755 src/%{name} %{buildroot}/%{_bindir}/%{name}
 install -Dm755 src/%{name}_update_config.sh %{buildroot}/%{_bindir}/cscreen_update_config.sh
 
@@ -153,6 +154,7 @@ fi
 %endif
 %{_bindir}/%{name}
 %{_bindir}/cscreen_update_config.sh
+%{_datadir}/%{name}/%{name}-shell
 %if 0%{?has_systemd}
 %{_unitdir}/%{name}d.service
 %else

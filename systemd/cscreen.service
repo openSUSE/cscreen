@@ -7,8 +7,9 @@ Type=forking
 Environment=SCREENRC='/etc/cscreenrc'
 Environment=SCREEN_NAME='console'
 Environment=SCREEN_HISTORY="20000"
+Environmane=SCREEN_SHELL='/usr/share/cscreen/cscreen-shell'
 EnvironmentFile=-/etc/sysconfig/cscreen
-ExecStart=/usr/bin/screen -h $SCREEN_HISTORY -d -m -S $SCREEN_NAME -c $SCREENRC
+ExecStart=/usr/bin/screen -h $SCREEN_HISTORY -s $SCREEN_SHELL -d -m -S $SCREEN_NAME -c $SCREENRC
 ExecReload=/bin/kill -HUP $MAINPID
 # This can be adjusted via "drop-in" directory cscreen.service.d/ (see systemd.unit(5))
 User=_cscreen

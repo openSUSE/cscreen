@@ -29,6 +29,7 @@ SCREEN_OWNER='_cscreen'
 SCREEN_NAME='console'
 SCREENRC='/etc/cscreenrc'
 SCREEN_HISTORY="20000"
+SCREEN_SHELL='/usr/share/cscreen/cscreen-shell'
 sysconfig='/etc/sysconfig/cscreen'
 screen='/usr/bin/screen'
 pidfile='/var/run/cscreen.pid'
@@ -79,7 +80,7 @@ case "$1" in
             0) echo "already running "
             ;;
             *)
-                createcmd="(ulimit -n $SCREEN_FILE_LIMIT; $screen -wipe $SCREEN_NAME; $screen -h $SCREEN_HISTORY -d -m -S $SCREEN_NAME -c $SCREENRC) < /dev/null > /dev/null 2>&1"
+                createcmd="(ulimit -n $SCREEN_FILE_LIMIT; $screen -wipe $SCREEN_NAME; $screen -h $SCREEN_HISTORY -s $SCREEN_SHELL -d -m -S $SCREEN_NAME -c $SCREENRC) < /dev/null > /dev/null 2>&1"
                 su $SCREEN_OWNER -c "/bin/sh -c '$createcmd'"
             ;;
         esac
