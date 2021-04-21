@@ -53,9 +53,27 @@ function usage()
     exit 0
 }
 
+function run_screen()
+{
+	local rc stty_settings
+
+	# The terminal interprets many characters which might be useful on the
+	# remote end. Unset everything but erase and let the remote system
+	# handle them. Restore settings when screen exits.
+	# Defaults: intr = ^C; quit = ^\; erase = ^?; kill = ^U; eof = ^D;
+	# eol = <undef>; eol2 = <undef>; swtch = <undef>; start = ^Q;
+	# stop = ^S; susp = ^Z; rprnt = ^R; werase = ^W; lnext = ^V;
+	# discard = ^O;
+	stty_settings="$($stty -g)"
+	$stty intr '' quit '' kill '' eof '' eol '' eol2 '' swtch '' start '' stop '' susp '' rprnt '' werase '' lnext '' discard ''
+	$screen "$@"
+	rc=$?
+	$stty $stty_settings
+	exit $rc
+}
+
 if [[ $# == 0 ]];then
-    exec $screen -x $connect -p =
-    exit 0
+    run_screen -x $connect -p =
 elif [[ $# == 1 ]];then
     if [ "$1" == "-u" ]; then
 	if [ -r "$UPDATE_ALLOWED_FILE" ] || [ "$FORCE_UPDATE" == 1 ];then
@@ -66,7 +84,7 @@ elif [[ $# == 1 ]];then
 	    exit 1
 	fi
     elif [ "$1" == "-l" ]; then
-	window_list=`screen -r $connect -Q windows "%3n|%t|%f|%x#"`
+	window_list=`$screen -r $connect -Q windows "%3n|%t|%f|%x#"`
 	IFS="#"
 	echo "NO"$'\t'"TITLE"$'\t'$'\t'$'\t'"Flags"
 	echo "Command"
@@ -93,17 +111,7 @@ elif [[ $# == 1 ]];then
     elif [ "$1" == "-h" ]; then
 	usage
     else
-	# The terminal interprets many characters which might be useful on the
-	# remote end. Unset everything but erase and let the remote system
-	# handle them. Restore settings when screen exits.
-	# Defaults: intr = ^C; quit = ^\; erase = ^?; kill = ^U; eof = ^D;
-	# eol = <undef>; eol2 = <undef>; swtch = <undef>; start = ^Q;
-	# stop = ^S; susp = ^Z; rprnt = ^R; werase = ^W; lnext = ^V;
-	# discard = ^O;
-	stty_settings="$($stty -g)"
-	$stty intr '' quit '' kill '' eof '' eol '' eol2 '' swtch '' start '' stop '' susp '' rprnt '' werase '' lnext '' discard ''
-	exec $screen -x $connect -p $1
-	$stty $stty_settings
+	run_screen -x $connect -p $1
     fi
 else
     usage
