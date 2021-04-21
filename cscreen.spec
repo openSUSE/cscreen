@@ -154,7 +154,7 @@ fi
 %endif
 %{_bindir}/%{name}
 %{_bindir}/cscreen_update_config.sh
-%{_datadir}/%{name}/%{name}-shell
+%{_datadir}/%{name}
 %if 0%{?has_systemd}
 %{_unitdir}/%{name}d.service
 %else
