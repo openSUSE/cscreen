@@ -7,7 +7,7 @@ Type=forking
 Environment=SCREENRC='/etc/cscreenrc'
 Environment=SCREEN_NAME='console'
 Environment=SCREEN_HISTORY="20000"
-Environmane=SCREEN_SHELL='/usr/share/cscreen/cscreen-shell'
+Environment=SCREEN_SHELL='/usr/share/cscreen/cscreen-shell'
 EnvironmentFile=-/etc/sysconfig/cscreen
 ExecStart=/usr/bin/screen -h $SCREEN_HISTORY -s $SCREEN_SHELL -d -m -S $SCREEN_NAME -c $SCREENRC
 ExecReload=/bin/kill -HUP $MAINPID
