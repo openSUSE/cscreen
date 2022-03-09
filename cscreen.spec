@@ -161,6 +161,7 @@ fi
 %{_bindir}/cscreen_update_config.sh
 %{_datadir}/%{name}
 %if 0%{?has_systemd}
+%_tmpfilesdir/%name.conf
 %{_unitdir}/%{name}d.service
 %else
 %attr(0644,root,root) %{_fillupdir}/sysconfig.%{name}
