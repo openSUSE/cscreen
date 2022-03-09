@@ -74,6 +74,10 @@ install -Dm644 systemd/cscreen.service %{buildroot}/%{_unitdir}/%{name}d.service
 pushd %{buildroot}/%{_sbindir}
 ln -sf service %{buildroot}%{_sbindir}/rc%{name}d
 popd
+mkdir -vp %buildroot%_tmpfilesdir
+tee %buildroot%_tmpfilesdir/%name.conf <<'_EOF_'
+d %_rundir/%name 0750 %USERNAME %GROUPNAME -
+_EOF_
 %else
 install -Dm644 configs/%{name}.sysconfig %{buildroot}/%{_fillupdir}/sysconfig.%{name}
 install -Dm755 systemd/cscreen.init %{buildroot}/%{_sysconfdir}/init.d/%{name}d
@@ -114,6 +118,7 @@ getent passwd %{USERNAME} >/dev/null || \
 %post
 %if 0%{?has_systemd}
 %service_add_post %{name}d.service
+%tmpfiles_create %_tmpfilesdir/%name.conf
 %else
 %{fillup_and_insserv %{name}d }
 %fillup_only %{name}

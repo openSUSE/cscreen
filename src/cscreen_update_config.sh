@@ -39,20 +39,24 @@ session="$3"
 function add_window()
 {
     local TITLE COMMAND
+    local _host _status
+    local debug='/run/cscreen/.debug'
     TITLE="$1"
     COMMAND="$2"
+
+    test -w "${debug%/*}" || debug='/dev/null'
 
     # change defhstatus
     _host=$(echo $COMMAND | cut -d" " -f 3)
     _status="$(sed -n "/${_host}/{n;p}" $SCREENRC)"
     _status="$(echo $_status |sed 's/defhstatus "\(.*\)"/\1/')"
-    echo $_host >> /tmp/cscreen.debug
-    echo $_status >> /tmp/cscreen.debug
+    echo $_host >> "${debug}"
+    echo $_status >> "${debug}"
     if [ -n "$_status" ];then 
-        echo "screen -x $session -X $_status" >> /tmp/cscreen.debug
-        screen -x $session -X defhstatus "$_status" >>/tmp/cscreen.debug 2>&1
+        echo "screen -x $session -X $_status" >> "${debug}"
+        screen -x $session -X defhstatus "$_status" &>> "${debug}"
     fi
-    echo "Add Window $TITLE: screen -x $session -X $COMMAND" >>/tmp/cscreen.debug
+    echo "Add Window $TITLE: screen -x $session -X $COMMAND" >> "${debug}"
     screen -x $session -X $COMMAND
 }
 
