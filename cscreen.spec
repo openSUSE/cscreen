@@ -93,7 +93,7 @@ d %_rundir/%name 0750 %USERNAME %GROUPNAME -
 _EOF_
 suc='system-user-%name.conf'
 tee "${suc}" <<'_EOC_'
-u %USERNAME %GROUPNAME "cscreen daemon user" %{HOMEDIR} /bin/bash
+u %USERNAME - "cscreen daemon user" %{HOMEDIR} /bin/bash
 m %USERNAME dialout
 m %USERNAME tty
 _EOC_
