@@ -53,7 +53,7 @@ Requires(pre):  group(tty)
 System user %USERNAME
 
 %prep
-%setup
+%autosetup -p1
 #
 %build
 #
