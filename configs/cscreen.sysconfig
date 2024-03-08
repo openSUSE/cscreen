@@ -1,11 +1,11 @@
 ## Path:        Hardware/Console/Screen
 ## Description: Console screen settings
-## Type:        string(root,cscreen)
-## Default:     "cscreen"
+## Type:        string(root,_cscreen)
+## Default:     "_cscreen"
 #
 # The owner of the screen session.
 #
-SCREEN_OWNER="cscreen"
+SCREEN_OWNER="_cscreen"
 
 ## Type:        integer(1:)
 ## Default:     "2048"
