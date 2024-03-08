@@ -74,7 +74,7 @@ d %_rundir/%name 0750 %USERNAME %USERNAME -
 _EOF_
 suc='system-user-%name.conf'
 tee "${suc}" <<'_EOC_'
-u %USERNAME - "cscreen daemon user" %{HOMEDIR} /bin/bash
+u %USERNAME - "cscreen daemon user" %HOMEDIR /bin/bash
 m %USERNAME dialout
 m %USERNAME tty
 _EOC_
@@ -90,8 +90,8 @@ install -Dm755 src/cscreen %buildroot/%_bindir/%name
 install -Dm755 src/cscreen_update_config.sh %buildroot/%_bindir/cscreen_update_config.sh
 
 mkdir -p %buildroot%_localstatedir/log/screen/old
-mkdir -pm700 %buildroot/%{HOMEDIR}
-mkdir -pm700 %buildroot/%{HOMEDIR}/.ssh
+mkdir -pm700 %buildroot/%HOMEDIR
+mkdir -pm700 %buildroot/%HOMEDIR/.ssh
 
 %pre
 %service_add_pre cscreend.service
@@ -136,8 +136,8 @@ fi
 %attr(0640,root,root) %config %_sysconfdir/sudoers.d/%name
 %attr(755,%{USERNAME}, %{USERNAME}) %dir %_localstatedir/log/screen
 %attr(755,%{USERNAME}, %{USERNAME}) %dir %_localstatedir/log/screen/old
-%attr(700,%{USERNAME}, %{USERNAME}) %dir %{HOMEDIR}
-%attr(700,%{USERNAME}, %{USERNAME}) %dir %{HOMEDIR}/.ssh
+%attr(700,%{USERNAME}, %{USERNAME}) %dir %HOMEDIR
+%attr(700,%{USERNAME}, %{USERNAME}) %dir %HOMEDIR/.ssh
 %attr(644,%{USERNAME}, %{USERNAME}) %config(noreplace) %_sysconfdir/cscreenrc
 %config(noreplace) %_sysconfdir/logrotate.d/%name
 
