@@ -3,7 +3,7 @@
 PATH=/bin:/usr/bin:/sbin:/usr/sbin
 export PATH
 
-SCREEN_OWNER='_cscreen'
+SCREEN_OWNER='cscreen'
 SCREEN_NAME='console'
 SCREENRC='/etc/cscreenrc'
 
@@ -19,7 +19,7 @@ stty=/usr/bin/stty
 # fail in certain situations if not root.
 #
 # We simply assume that the session is run as the same
-# user we are currently logged in as (probably _cscreen).
+# user we are currently logged in as (probably cscreen).
 if [ "$SCREEN_OWNER" = "root" ] || [ -u "$screen" ];then
     connect=$SCREEN_OWNER/$SCREEN_NAME
 elif [ "$SCREEN_OWNER" = "$SCREEN_OWNER" ];then

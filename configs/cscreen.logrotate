@@ -1,5 +1,5 @@
 /var/log/screen/*.log {
-    su _cscreen _cscreen
+    su cscreen cscreen
     compress
     dateext
     maxage 365
