@@ -16,7 +16,6 @@
 #
 
 
-%define GROUPNAME _cscreen
 %define USERNAME _cscreen
 %define HOMEDIR %_localstatedir/lib/cscreen
 Name:           cscreen
@@ -71,7 +70,7 @@ ln -sf service %buildroot%_sbindir/rccscreend
 popd
 mkdir -vp %buildroot%_tmpfilesdir
 tee %buildroot%_tmpfilesdir/%name.conf <<'_EOF_'
-d %_rundir/%name 0750 %USERNAME %GROUPNAME -
+d %_rundir/%name 0750 %USERNAME %USERNAME -
 _EOF_
 suc='system-user-%name.conf'
 tee "${suc}" <<'_EOC_'
@@ -135,11 +134,11 @@ fi
 %_sbindir/rccscreend
 
 %attr(0640,root,root) %config %_sysconfdir/sudoers.d/%name
-%attr(755,%{USERNAME}, %{GROUPNAME}) %dir %_localstatedir/log/screen
-%attr(755,%{USERNAME}, %{GROUPNAME}) %dir %_localstatedir/log/screen/old
-%attr(700,%{USERNAME}, %{GROUPNAME}) %dir %{HOMEDIR}
-%attr(700,%{USERNAME}, %{GROUPNAME}) %dir %{HOMEDIR}/.ssh
-%attr(644,%{USERNAME}, %{GROUPNAME}) %config(noreplace) %_sysconfdir/cscreenrc
+%attr(755,%{USERNAME}, %{USERNAME}) %dir %_localstatedir/log/screen
+%attr(755,%{USERNAME}, %{USERNAME}) %dir %_localstatedir/log/screen/old
+%attr(700,%{USERNAME}, %{USERNAME}) %dir %{HOMEDIR}
+%attr(700,%{USERNAME}, %{USERNAME}) %dir %{HOMEDIR}/.ssh
+%attr(644,%{USERNAME}, %{USERNAME}) %config(noreplace) %_sysconfdir/cscreenrc
 %config(noreplace) %_sysconfdir/logrotate.d/%name
 
 %changelog
