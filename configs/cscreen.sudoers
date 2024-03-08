@@ -1,1 +1,1 @@
-%_cscreen ALL=(_cscreen) NOPASSWD:/usr/bin/screen
+%cscreen ALL=(cscreen) NOPASSWD:/usr/bin/screen

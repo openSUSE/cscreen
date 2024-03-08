@@ -16,8 +16,8 @@
 #
 
 
-%define GROUPNAME _cscreen
-%define USERNAME _cscreen
+%define GROUPNAME cscreen
+%define USERNAME cscreen
 %define HOMEDIR %_localstatedir/lib/cscreen
 %if ! %{defined _fillupdir}
   %define _fillupdir %_localstatedir/adm/fillup-templates
