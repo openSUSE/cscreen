@@ -15,7 +15,8 @@ ExecReload=/bin/kill -HUP $MAINPID
 User=_cscreen
 Group=_cscreen
 # This can be adjusted via "drop-in" directory cscreen.service.d/ (see systemd.exec(5))
-LimitNOFILE=2048
+# screen uses select(2), which is limited to FD_SETSIZE open file descriptors
+LimitNOFILE=1024
 
 [Install]
 WantedBy=multi-user.target
