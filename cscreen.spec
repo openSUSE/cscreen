@@ -122,6 +122,7 @@ fi
 %_sysusersdir/*.conf
 
 %files -f %name.files
+%doc README.md
 %doc docs/motd_example
 %if 0%{?suse_version} > 1320
 %license License
