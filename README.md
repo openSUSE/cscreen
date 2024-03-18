@@ -32,3 +32,15 @@ Note: the username and password of the BMC needs to be provided via the configur
 cscreen_BMC_user=X
 cscreen_BMC_password=Y
 ````
+
+## sol-via-ssh.sh
+
+This script waits until the remote host responds to ping.
+Once it is reachable, a new SOL connection via SSH to port 2200 will be established.
+Note: the username and password of the BMC needs to be provided via the configuration file /etc/cscreen-credentials.conf
+Note: this script requires sshpass to provide the SSH password to the remote host.
+
+````
+cscreen_BMC_user=X
+cscreen_BMC_password=Y
+````
