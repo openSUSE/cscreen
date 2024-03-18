@@ -110,10 +110,10 @@ mkdir -pm700 %buildroot/%HOMEDIR/.ssh
 DISABLE_RESTART_ON_UPDATE=yes
 %service_del_postun cscreend.service
 %endif
-if [ -d /run/uscreens/S-cscreen ];then
+if [ -d %_rundir/uscreens/S-cscreen ];then
     if [ "$1" = "0" ];then
 	# Only delete on uninstall
-	rm -rf /run/uscreens/S-cscreen
+	rm -rf %_rundir/uscreens/S-cscreen
     fi
 fi
 
