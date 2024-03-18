@@ -86,6 +86,7 @@ install -Dm640 configs/cscreen.config %buildroot/%_sysconfdir/cscreenrc
 install -Dm644 configs/cscreen.logrotate %buildroot/%_sysconfdir/logrotate.d/%name
 install -Dm644 configs/cscreen.sudoers %buildroot%_sysconfdir/sudoers.d/%name
 install -Dm755 src/cscreen-shell %buildroot/%_datadir/%name/cscreen-shell
+install -Dm555 src/sol-via-ipmi.sh %buildroot/%_datadir/%name/sol-via-ipmi.sh
 install -Dm755 src/cscreen %buildroot/%_bindir/%name
 install -Dm755 src/cscreen_update_config.sh %buildroot/%_bindir/cscreen_update_config.sh
 
