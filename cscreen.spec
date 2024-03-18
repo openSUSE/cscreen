@@ -64,7 +64,7 @@ then
 fi
 mkdir -p %buildroot/%_sbindir
 
-install -Dm644 systemd/cscreen.service %buildroot/%_unitdir/cscreend.service
+install -Dm644 cscreen.service %buildroot/%_unitdir/cscreend.service
 pushd %buildroot/%_sbindir
 ln -sf service %buildroot%_sbindir/rccscreend
 popd
