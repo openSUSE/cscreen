@@ -44,8 +44,10 @@ to start the screen automatically during boot.
 
 %package -n system-user-%name
 Summary:        System user %USERNAME
+%if 0%{?suse_version} > 1320
 Requires(pre):  group(dialout)
 Requires(pre):  group(tty)
+%endif
 %?sysusers_requires
 
 %description -n system-user-%name
