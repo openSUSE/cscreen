@@ -53,11 +53,11 @@ function add_window()
     echo $_host >> "${debug}"
     echo $_status >> "${debug}"
     if [ -n "$_status" ];then 
-        echo "screen -x $session -X $_status" >> "${debug}"
-        screen -x $session -X defhstatus "$_status" &>> "${debug}"
+        echo "screen -x '$session' -X $_status" >> "${debug}"
+        screen -x "$session" -X defhstatus "$_status" &>> "${debug}"
     fi
-    echo "Add Window $TITLE: screen -x $session -X $COMMAND" >> "${debug}"
-    screen -x $session -X $COMMAND
+    echo "Add Window $TITLE: screen -x '$session' -X $COMMAND" >> "${debug}"
+    screen -x "$session" -X $COMMAND
 }
 
 function remove_window()
@@ -137,4 +137,4 @@ function detect_modifications()
 }
 
 detect_modifications
-screen -x $session -Q sort
+screen -x "$session" -Q sort
