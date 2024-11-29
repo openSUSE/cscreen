@@ -29,7 +29,9 @@ Source:         %name-%version.tar.xz
 Source1:        %name-rpmlintrc
 BuildRequires:  sudo
 Recommends:     logrotate
+Requires:       diffutils
 Requires:       screen
+Requires:       sed
 Requires:       sudo
 Requires(postun): coreutils
 BuildRequires:  pkgconfig(systemd)
