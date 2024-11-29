@@ -47,7 +47,7 @@ function add_window()
     test -w "${debug%/*}" || debug='/dev/null'
 
     # change defhstatus
-    _host=$(echo $COMMAND | cut -d" " -f 3)
+    _host=$(echo "$COMMAND" | cut -d" " -f 3)
     _status="$(sed -n "/${_host}/{n;p}" $SCREENRC)"
     _status="$(echo $_status |sed 's/defhstatus "\(.*\)"/\1/')"
     echo $_host >> "${debug}"
@@ -56,8 +56,8 @@ function add_window()
         echo "screen -x '$session' -X $_status" >> "${debug}"
         screen -x "$session" -X defhstatus "$_status" &>> "${debug}"
     fi
-    echo "Add Window $TITLE: screen -x '$session' -X $COMMAND" >> "${debug}"
-    screen -x "$session" -X $COMMAND
+    echo "Add Window $TITLE: screen -x '$session' -X '$COMMAND'" >> "${debug}"
+    screen -x "$session" -X "$COMMAND"
 }
 
 function remove_window()
@@ -93,7 +93,7 @@ function detect_modifications()
 	COMMAND="$2"
 	HOST="$3"
 	[[ $DEBUG == 1 ]] && echo "Add/Remove: $TYPE"
-	[[ $DEBUG == 1 ]] && echo "Command line: $COMMAND"
+	[[ $DEBUG == 1 ]] && echo "Command line: '$COMMAND'"
 	[[ $DEBUG == 1 ]] && echo "Host: $HOST"
 	[[ $DEBUG == 1 ]] && echo
 	# If we have an add, we have to double check whether we also
