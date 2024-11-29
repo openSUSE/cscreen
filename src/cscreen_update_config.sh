@@ -62,9 +62,8 @@ function add_window()
 
 function remove_window()
 {
-    local TITLE COMMAND
+    local TITLE
     TITLE="$1"
-    COMMAND="$2"
     echo "Remove Window $TITLE"
 set -x
     screen -x "$session" -X -p "$TITLE" kill
