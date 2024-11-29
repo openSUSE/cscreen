@@ -84,7 +84,7 @@ function detect_modifications()
     # <|screen -t acrux                -L -I lanplus -H acrux-sp.arch.suse.de -U root -P hammer sol activate|acrux|
     # Which means that acrux entry got removed, the full command is
     # "screen -t acrux ..."
-    diff_list=`diff $old_file $new_file |grep "screen -t"|sed -n -e 's/ \(screen -t \(\S*\).*\)/|\1|\2|/p'`
+    diff_list=`diff $old_file $new_file | sed -n -e '/screen -t/{s/ \(screen -t \(\S*\).*\)/|\1|\2|/p}'`
     [[ $DEBUG == 1 ]] && echo $diff_list
     for ENTRY in $diff_list;do
 	IFS='|'
