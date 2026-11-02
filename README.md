@@ -3,7 +3,7 @@ Allows to run multiple consoles in one screen session. Perfect for monitoring an
 
 # Configuration
 
-The file /etc/cscreenrc needs to be adjusted which commands for every required console window.
+The file /etc/cscreenrc needs to be adjusted with commands for every required console window.
 
 The command "screen", followed by its well documented command line options, creates new windows.
 Typically the option "-t title" and "-L" to enable logging are used, followed by the actual command.
